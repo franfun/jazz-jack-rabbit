@@ -70,14 +70,15 @@ package net.jazz.game.data {
       return mKeys;
     }
 
-    public function find(name:String):Object {
+    public function find(name:String, def:Object = null):Object {
       if(mGroups.indexOf(name) >= 0) return mSettings[name].value;
-      return mSettings[name];
+      if(mKeys.indexOf(name) >= 0) return mSettings[name];
+      return def;
     }
 
-    public function findGroup(name:String):TProperties {
-      if(mGroups.indexOf(name) < 0) return null;
-      return mSettings[name];
+    public function findGroup(name:String, def:TProperties = null):TProperties {
+      if(mGroups.indexOf(name) < 0) return def;
+      mSettings[name];
     }
   }
 }
