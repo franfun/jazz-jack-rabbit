@@ -7,51 +7,35 @@ package net.jazz.game.affects {
   import net.jazz.game.core.IAffectable;
 
   public class TKeyboard extends TAffect {
-    private function FindControl(target:IAffectable, data:TKeyboardData):void {
-      for each(var affect:TAffect in target.currentAffects)
-        if(affect is TControl) {
-          data.control = affect as TControl;
-          return;
-        }
+    private var mControl:TControl;
+    private var mJump:TJump;
+    private var mShoot:TShoot;
+
+    public function TKeyboard(control:TControl, jump:TJump, shoot:TShoot) {
+      mControl = control;
+      mJump = jump;
+      mShoot = shoot;
     }
 
     //-------------------------------------------------
     //-- TAffect specific implementation
     //-------------------------------------------------
-    public override function Prepare(target:IAffectable):void {
-      var data:TKeyboardData = GetData(target) as TKeyboardData;
-      if(!data.control) {
-        FindControl(target, data);
-        if(!data.control) {
-          return;
-        }
-      }
+    public override function prepare():void {
+      // var data:TKeyboardData = GetData(target) as TKeyboardData;
 
-      if(Input.pressed(Key.RIGHT)) data.control.StartRight();
-      if(Input.released(Key.RIGHT)) data.control.StopRight();
+      if(Input.pressed(Key.RIGHT)) mControl.StartRight();
+      if(Input.released(Key.RIGHT)) mControl.StopRight();
 
-      if(Input.pressed(Key.LEFT)) data.control.StartLeft();
-      if(Input.released(Key.LEFT)) data.control.StopLeft();
-    }
+      if(Input.pressed(Key.LEFT)) mControl.StartLeft();
+      if(Input.released(Key.LEFT)) mControl.StopLeft();
 
-    public override function Do(target:IAffectable):void {
-    }
+      if(Input.pressed(Key.UP)) mJump.StartJump();
+      if(Input.released(Key.UP)) mJump.StopJump();
 
-    public override function Finish(target:IAffectable):void {
-    }
+      if(Input.pressed(Key.SPACE)) mShoot.StartShoot();
+      if(Input.released(Key.SPACE)) mShoot.StopShoot();
 
-    public override function Register(target:IAffectable):void {
-      super.Register(target);
-      var data:TKeyboardData = new TKeyboardData as TKeyboardData;
-      SetData(target, data);
-      FindControl(target, data);
+      if(Input.pressed(Key.CONTROL)) mShoot.nextWeapon();
     }
   }
-}
-
-import net.jazz.game.core.IAffectData;
-import net.jazz.game.affects.TControl;
-
-class TKeyboardData implements IAffectData {
-  public var control:TControl;
 }

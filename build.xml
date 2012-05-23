@@ -10,11 +10,11 @@
 		</define>
 		<define>
 			<name>CONFIG::JazzAcceleration</name>
-			<value>100</value>
+			<value>20</value>
 		</define>
 		<define>
 			<name>CONFIG::JazzMaxSpeed</name>
-			<value>250</value>
+			<value>15</value>
 		</define>
 	</compiler>
 </flex-config>

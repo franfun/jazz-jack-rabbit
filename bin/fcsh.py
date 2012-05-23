@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2.7
 
 # This script is a wrapper for fcsh to give it a better user interface and to
 # make it compatible with make. It runs as a daemon process which manages a

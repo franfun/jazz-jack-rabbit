@@ -19,13 +19,13 @@ package net.jazz.game.core {
      *
      * @param aff IAffectable Object to add
      */
-    function AddAffectable(aff:IAffectable):void;
+    function addAffectable(aff:IAffectable):void;
 
     /**
      * Remove affectable.
      *
      * @param aff IAffectable Object to remove
      */
-    function RemoveAffectable(aff:IAffectable):void;
+    function removeAffectable(aff:IAffectable):void;
   }
 }

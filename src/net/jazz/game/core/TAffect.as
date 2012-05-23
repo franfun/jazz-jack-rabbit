@@ -6,21 +6,13 @@ package net.jazz.game.core {
    * Basic affect interface.
    */
   public class TAffect {
-    /**
-     * Objects who are processed by this affect.
-     */
-    private var mTargets:Array = [];
-    /**
-     * Data associated with each target.
-     */
-    private var mData:Dictionary = new Dictionary;
-
+    private var mTarget:IAffectable;
     /**
      * Before applying filter.
      *
      * @param target IAffectable Who to affect
      */
-    public function Prepare(target:IAffectable):void {
+    public function prepare():void {
     }
 
     /**
@@ -28,7 +20,7 @@ package net.jazz.game.core {
      *
      * @param target IAffectable Who to affect
      */
-    public function Do(target:IAffectable):void {
+    public function process():void {
     }
 
     /**
@@ -36,8 +28,10 @@ package net.jazz.game.core {
      *
      * @param target IAffectable Who to affect
      */
-    public function Finish(target:IAffectable):void {
+    public function finish():void {
     }
+
+    protected function get target():IAffectable { return mTarget; }
 
     /**
      * Register this target to be affected
@@ -45,30 +39,16 @@ package net.jazz.game.core {
      * @param target IAffectable New target
      */
     public function Register(target:IAffectable):void {
-      mTargets.push(target);
+      mTarget = target;
     }
 
     /**
-     * Register this target to be affected
+     * Remove this target to be affected
      *
-     * @param target IAffectable New target
+     * @param target IAffectable target
      */
     public function Unregister(target:IAffectable):void {
-      mTargets.splice(mTargets.indexOf(target), 1);
-      DelData(target);
-    }
-
-    public function GetData(target:IAffectable):IAffectData {
-      return mData[target];
-    }
-
-    protected function SetData(target:IAffectable, data:IAffectData):void {
-      DelData(target);
-      mData[target] = data;
-    }
-
-    private function DelData(target:IAffectable):void {
-      delete mData[target];
+      mTarget = null;
     }
   }
 }

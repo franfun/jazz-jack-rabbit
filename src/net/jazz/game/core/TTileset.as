@@ -25,7 +25,7 @@ package net.jazz.game.core {
     public function get tileHeight():uint { return mTileHeight; }
 
     public function FGTilemap(w:uint, h:uint):Tilemap {
-      return new Tilemap(mForeground, w, h, mTileWidth, mTileHeight);
+      return null;
     }
 
     public function BGTilemap(w:uint, h:uint):Tilemap {

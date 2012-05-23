@@ -11,15 +11,27 @@ package net.jazz.game.affects {
    * Implents pure jazz control - no device specific data.
    */
   public class TControl extends TAffect {
+    /**
+     * If left button pressed
+     */
     private var mLeftStarted:Boolean = false;
+    /**
+     * If right button pressed
+     */
     private var mRightStarted:Boolean = false;
+    /**
+     * Current required orientation. -1 left, +1 right, 0 no movement required
+     */
     private var mHorizontalLook:int = 0;
-    private var mVerticalLook:int = 0;
 
-    private var mBounds:TLevel;
+    public var extraPower:Number = 0;
 
-    public function TControl(bounds:TLevel):void {
-      mBounds = bounds;
+    private var mLastDelta:int;
+    private var mV:Number = 0;
+
+    private var mActive:Boolean = true;
+
+    public function TControl():void {
     }
 
     /**
@@ -56,33 +68,70 @@ package net.jazz.game.affects {
       mHorizontalLook = (mLeftStarted ? -1 : 0);
     }
 
+    public function Speed():Number {
+      return mV;
+    }
+
+    public function set active(bb:Boolean):void {
+      if(mActive == bb) return;
+      mActive = bb;
+      mV = 0;
+    }
+
+    public function get active():Boolean { return mActive; }
+
     //-------------------------------------------------
     //-- TAffect specific implementation
     //-------------------------------------------------
-    public override function Prepare(target:IAffectable):void {
-      var data:TControlData = GetData(target) as TControlData;
-      if(mHorizontalLook == 0) data.RemovePower("move");
-      else data.AddPower("move", CONFIG::JazzAcceleration * mHorizontalLook, CONFIG::JazzMaxSpeed * mHorizontalLook);
+    public override function prepare():void {
+      // var obj:TObject = target as TObject;
+
+      // if(mHorizontalLook == 0) value.RemovePower("move", 50);
+      // else {
+      //   if(!mActive) return;
+      //   var power:Object = value.GetPower("move");
+      //   if(power == null) {
+      //     value.AddPower("move", 30 * mHorizontalLook, 20 * mHorizontalLook);
+      //     return;
+      //   }
+      //   if(power.curr * mHorizontalLook < 0 && power.active) value.RemovePower("move", 50);
+      // }
     }
 
-    public override function Do(target:IAffectable):void {
+    public var orientation:int;
+
+    public override function process():void {
+      if((mActive && mV == 0) && mHorizontalLook == 0) return;
       var obj:TObject = target as TObject;
-      var data:TControlData = GetData(target) as TControlData;
-      data.Elapsed(FP.elapsed);
-      var dx:int = data.value;
-      FP.console.log(dx);
+      var dt:Number = FP.elapsed;
+      if(mV < 0) {
+        orientation = +1;
+        if(mHorizontalLook < 0) mV = Math.max(-28, mV - dt * 90);
+        else {
+          if(mLastDelta == 0) mV = 0;
+          else mV = Math.max(-45, mV + dt * 200);
+        }
+        if(mHorizontalLook == 0 && mV > 0) mV = 0;
+      } else if(mV > 0) {
+        orientation = -1;
+        if(mHorizontalLook > 0) mV = Math.min(28, mV + dt * 90);
+        else {
+          if(mLastDelta == 0) mV = 0;
+          else mV = Math.min(45, mV - dt * 200);
+        }
+        if(mHorizontalLook == 0 && mV < 0) mV = 0;
+      } else {
+        if(mHorizontalLook < 0) mV = Math.max(-28, mV - dt * 90);
+        else mV = Math.min(28, mV + dt * 90);
+      }
+      var dx:int = ((mActive ? mV : 0) + extraPower) * dt * 10;
       if(dx == 0) return;
-      var mDx:int = mBounds.HorizontalLimit(obj, dx);
-      FP.console.log("--- " + mDx);
+      var mDx:int = mLastDelta = obj.horizontalLimit(dx);
       obj.HorizontalMove(mDx);
-    }
-
-    public override function Finish(target:IAffectable):void {
     }
 
     public override function Register(target:IAffectable):void {
       super.Register(target);
-      SetData(target, new TControlData);
     }
   }
 }
