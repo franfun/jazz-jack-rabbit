@@ -55,6 +55,13 @@ package net.jazz.game.map {
       mForeground = Tiles;
     }
 
+    public function addLayer(node:XML):void {
+      var nodeName:String = node.name().toString();
+      if(nodeName == "layer") addLandscapeLayer(node);
+      else if(nodeName == "objectgroup") addObjectLayer(node);
+      else throw new Error("Unknown layer kind: " + nodeName);
+    }
+
     public override function install(where:TLevel):void {
       super.install(where);
 

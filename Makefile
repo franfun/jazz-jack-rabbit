@@ -34,7 +34,7 @@ all: ${DEST_DIR}/${DEST_NAME}
 test: ${DEST_DIR}/${TEST_APP}
 
 ${DEST_DIR}/${TEST_APP}: ${TEST_DIR}/${TEST_APP_NAME}
-	${MXMLC} -source-path ${SRC_DIR} \
+	${MXMLC} -source-path ${SRC_DIR} ${CLASSPATH_DIR} \
            --output ${DEST_DIR}/${TEST_APP} \
            --default-size ${APP_WIDTH} ${APP_HEIGHT} \
            --default-background-color ${BG_COLOR} \
@@ -53,5 +53,5 @@ ${DEST_DIR}/${DEST_NAME}: ${SRC_DIR}/${APP_NAME} Makefile
            ${SRC_DIR}/${APP_NAME}
 
 clean:
-	-rm ${DEST_DIR}/${DEST_NAME}
-	-rm ${DEST_DIR}/${TEST_APP}
+	-rm -f ${DEST_DIR}/${DEST_NAME}
+	-rm -f ${DEST_DIR}/${TEST_APP}

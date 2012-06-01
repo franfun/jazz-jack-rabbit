@@ -8,7 +8,7 @@ package net.jazz.game.data {
     public function TProperties(node:XML = null) {
       if(!node) return;
       for each(var pr:XML in node.property)
-        add(pr.@name, pr.@value);
+        add(pr.@name, pr.@value.toString());
     }
 
     public function add(name:String, value:Object):void {

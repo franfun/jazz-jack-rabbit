@@ -1,5 +1,6 @@
 package net.jazz.game.core {
+  import net.jazz.game.data.TProperties;
   public interface IConfigurable {
-    public function setProperties(p:TProperties):void;
+    function setProperties(p:TProperties):void;
   }
 }

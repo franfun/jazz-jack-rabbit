@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="5" height="10" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="first" tilewidth="32" tileheight="32">
+  <properties>
+   <property name="g-type" value="landscape"/>
+  </properties>
+  <image source="diamondus-aligned-indexed.png" width="320" height="640"/>
+ </tileset>
+ <tileset firstgid="201" name="second" tilewidth="32" tileheight="32">
+  <properties>
+   <property name="g-type" value="landscape"/>
+  </properties>
+  <image source="diamondus-aligned-indexed.png" width="320" height="640"/>
+ </tileset>
+ <layer name="down" width="5" height="10">
+  <data encoding="csv">
+17,34,6,54,14,
+3,74,45,34,53,
+25,63,8,15,14,
+71,31,2,73,21,
+21,58,3,16,48,
+46,68,2,66,15,
+43,17,74,5,73,
+67,34,54,36,73,
+8,14,31,65,58,
+26,51,46,74,27
+</data>
+ </layer>
+ <layer name="up" width="5" height="10">
+  <data encoding="csv">
+212,221,205,231,262,
+271,227,247,237,216,
+216,222,252,243,204,
+274,241,256,251,274,
+223,252,245,212,205,
+216,267,272,215,223,
+213,265,254,265,253,
+243,234,262,216,205,
+253,217,243,276,222,
+223,211,221,223,274
+</data>
+ </layer>
+</map>
