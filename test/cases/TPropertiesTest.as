@@ -67,5 +67,15 @@ package cases {
       Assert.assertTrue("key value", keys.indexOf("height") >= 0);
       Assert.assertTrue("key value", keys.indexOf("rect") >= 0);
     }
+
+    [Test(description = "test from XML node attributes")]
+    public function fromAttributes():void {
+      var xml:XML = <node left="true" right="false" twenty="20" />;
+      var pr:TProperties = new TProperties();
+      pr.fromAttributes(xml, new <String>["right"]);
+      Assert.assertEquals("Value", "true", pr.find("left"));
+      Assert.assertEquals("Value", "nothing", pr.find("right", "nothing"));
+      Assert.assertEquals("Value", "20", pr.find("twenty"));
+    }
   }
 }

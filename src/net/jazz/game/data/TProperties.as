@@ -36,6 +36,14 @@ package net.jazz.game.data {
       mSettings[bare].add(res, value);
     }
 
+    public function fromAttributes(node:XML, skipList:Vector.<String> = null):void {
+      for each(var attr:XML in node.attributes()) {
+        var name:String = attr.name();
+        if(skipList != null && skipList.indexOf(name) >= 0) continue;
+        add(name, String(attr));
+      }
+    }
+
     public function get value():Object {
       return mSettings[""];
     }
@@ -54,10 +62,11 @@ package net.jazz.game.data {
     }
 
     public function remove(name:String):Object {
-      mKeys.splice(mKeys.indexOf(name), 1);
+      var res:Object = find(name);
+      if(mKeys.indexOf(name) >= 0)
+        mKeys.splice(mKeys.indexOf(name), 1);
       if(mGroups.indexOf(name) >= 0)
         mGroups.splice(mGroups.indexOf(name), 1);
-      var res:Object = find(name);;
       delete mSettings[name];
       return res;
     }
@@ -78,7 +87,7 @@ package net.jazz.game.data {
 
     public function findGroup(name:String, def:TProperties = null):TProperties {
       if(mGroups.indexOf(name) < 0) return def;
-      mSettings[name];
+      return mSettings[name];
     }
   }
 }
