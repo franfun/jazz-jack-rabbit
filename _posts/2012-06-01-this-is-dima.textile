@@ -1,0 +1,9 @@
+---
+layout: main
+title: this is page title of me - dima
+permalink: /jekyll/this-is-dima.html
+---
+
+h1. {{ page.title }}
+
+currently, this is end. see you guys
