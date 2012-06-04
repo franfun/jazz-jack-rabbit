@@ -1,3 +1,42 @@
+div {
+    float:left;
+}
+
+div.list {
+    width: 200px;
+    background-color: #77AA77;
+    margin-right: 10px;
+    margin-top:50px;
+    font-family: sans-serif;
+}
+div.list a {
+    color: blue;
+}
+
+h1, h2 {
+    font-family: sans-serif;
+}
+
+div.content {
+    width: 500px;
+    background-color: #77AA77;
+}
+
 body {
     background-color: #66AA66;
+}
+
+span.mono {
+    font-family: monospace;
+}
+
+span.struct {
+    color: brown;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+span.attribute {
+    color: yellow;
+    font-family: sans-serif;
 }

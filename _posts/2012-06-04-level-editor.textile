@@ -1,0 +1,34 @@
+---
+layout: main
+title: Levels in files
+permalink: files.html
+---
+
+h1. Levels in Files.
+
+Game Levels are built using "tiled":http://www.mapeditor.org/ . This way levels have next structure:
+
+%(struct)Properties% - contains any number of fields name=value represented as %(mono)&lt;property name="NAME" value="VALUE" /&gt;%. This can be found in any element of the map. Map can contain this too.
+
+%(struct)Map% - Contains zero or more %(struct)tileset% s, and zero or more %(struct)layer%s or %(struct)objectgroup%s. Layers and Objectgroups are listed in the dispay order. Contains own attributes:
+* %(attribute)width%, %(attribute)height% - size of the map in tiles.
+* %(attribute)tilewidth%, %(attribute)tileheight% - size of tiles used for map grid.
+
+%(struct)Tileset% - Images, divided into rectangles of the same size - tiles, used for creating moving objects (torail), single-image objects (carrot) or representing possible tiles of the map. Each tile has it's own, unique GID. All the GIDs are assign one by one, starting with 1.
+* %(attribute)firstgid% - GID of the first tile.
+* %(attribute)tilewidth%, %(attribute)tileheight% - size of tiles used in this tileset.
+* %(attribute)name% - name of the tileset.
+
+Each %(struct)tile% can contain own %(struct)properties%. Tiles are referenced by id=GID.
+
+%(struct)Layer% - Layer of the map. This is built with sequence of tiles listed one by one.
+* %(struct)Data% - List of tiles in the layer. These are GIDs of tiles.
+* %(attribute)name* - Name of the layer.
+** %(attribute)ecoding* - Way, the tiles' GIDs are listed. CSV - coma separated list.
+
+%(struct)ObjectGroup% - Group of objects.
+* %(struct)object% - describes single object on the map.
+** %(attribute)name% - name of the object.
+** %(attribute)type% - type of the object.
+** %(attribute)gid% - gid of the object, used to display it in editor.
+** %(attribute)x%, %(attribute)y% - possition of the object in pixels.

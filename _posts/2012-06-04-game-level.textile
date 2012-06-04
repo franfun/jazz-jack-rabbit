@@ -1,0 +1,24 @@
+---
+layout: main
+title: Game Levels
+permalink: game-levels.html
+---
+
+h2. Game Levels
+
+Game is made using "flashpunk":http://flashpunk.net/.
+
+All objects of the map are represented by "%(struct)Entity%":http://flashpunk.net/docs/net/flashpunk/Entity.html. Entity has:
+* %(attribute)graphic% - how the object is represented on the map. Main types are:
+** "%(struct)Image%":http://flashpunk.net/docs/net/flashpunk/graphics/Image.html - single image (carrot, ammo images)
+** "%(struct)Spritemap%":http://flashpunk.net/docs/net/flashpunk/graphics/Spritemap.html - motion image. Defines sequences of frame for single motion (running, or jumping rabbit). Can be looped.
+** "%(struct)TiledImage%":http://flashpunk.net/docs/net/flashpunk/graphics/TiledImage.html - used for representing levels. based on matrix of tile ids - builds single image.
+* %(attribute)hitbox% - rectangle, describing "size" of the image in the world. Used to find collisions.
+* %(attribute)mask% - non-rectangular representation of object bounds.
+* %(attribute)type% - _type_ of an object. Used for splitting collision objects into groups.
+
+Each level contains:
+
+* %(struct)Jazz% - main character. Controled by keyboard or on-screen keyboard. This one can have global description for all the levels built-into game, and per-level special appearences. For example in snow levels - while waiting, Jazz freezes.
+* %(struct)Level% - map. Determines foregrounds, lands and decorations. Have to contain at least two types of collisions - fully solid, and somehow transparent - like trees, you can jump on them, but cannot fall.
+* %(struct)Object% - level object. These can move, interract with Jazz, and have different logic. There are shared objects - like carrots, bullets, etc... these can be like external libraries for level data, prebuilt and shared objects.

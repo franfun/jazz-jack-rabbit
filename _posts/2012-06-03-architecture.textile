@@ -6,5 +6,10 @@ permalink: architecture.html
 
 h1. Architecture.
 
+
 h2. Main Parts.
 
+* "Levels in Files":files.html
+* "Levels in Game":game-levels.html
+* "Gameplay Process":gameplay.html
+** Restartable

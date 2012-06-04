@@ -6,3 +6,5 @@ permalink: index.html
 
 h1. Flex Jazz Jack Rabbit
 
+HI!
+Use navigation.
