@@ -1,0 +1,12 @@
+---
+layout: main
+title: Game Architecture
+permalink: architecture.html
+---
+
+h1. Architecture.
+
+    [Main Page]({% post_url 2012-06-02-main-page %})
+
+h2. Main Parts.
+
