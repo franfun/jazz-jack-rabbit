@@ -8,7 +8,7 @@ h1. Levels in Files.
 
 Game Levels are built using "tiled":http://www.mapeditor.org/ . This way levels have next structure:
 
-%(struct)Properties% - contains any number of fields name=value represented as %(mono)&lt;property name="NAME" value="VALUE" /&gt;%. This can be found in any element of the map. Map can contain this too.
+%(struct)Properties% - contains any number of fields name=value represented as %(mono)&lt;property name="NAME" value="VALUE" /&gt;%. This can be found in any element of the map. Map can contain this too. Nested properties have names CHILD/NAME=VALUE. CHILDREN can be properties of sub-objects. For example these can be properties of %(struct)Affect% for some %(struct)Object%.
 
 %(struct)Map% - Contains zero or more %(struct)tileset% s, and zero or more %(struct)layer%s or %(struct)objectgroup%s. Layers and Objectgroups are listed in the dispay order. Contains own attributes:
 * %(attribute)width%, %(attribute)height% - size of the map in tiles.

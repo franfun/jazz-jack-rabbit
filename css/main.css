@@ -40,3 +40,8 @@ span.attribute {
     color: yellow;
     font-family: sans-serif;
 }
+
+span.method {
+    color: lightgrey;
+    font-family: sans-serif;
+}

@@ -21,4 +21,13 @@ Each level contains:
 
 * %(struct)Jazz% - main character. Controled by keyboard or on-screen keyboard. This one can have global description for all the levels built-into game, and per-level special appearences. For example in snow levels - while waiting, Jazz freezes.
 * %(struct)Level% - map. Determines foregrounds, lands and decorations. Have to contain at least two types of collisions - fully solid, and somehow transparent - like trees, you can jump on them, but cannot fall.
-* %(struct)Object% - level object. These can move, interract with Jazz, and have different logic. There are shared objects - like carrots, bullets, etc... these can be like external libraries for level data, prebuilt and shared objects.
+* %(struct)Object% - level object. These can move, interract with Jazz, and have different logic. There are shared objects - like carrots, bullets, etc... these can be like external libraries for level data, prebuilt and shared objects. %(struct)Jazz% is also is instance of an object.
+
+Object behaviour is controlled by %(struct)Affect% s
+
+%(struct)Affect% -b uilding block of object behaviour. Associative and comutative operations over %(struct)Object% . Invoked every cycle in 3 stages - %(method)prepare%, %(method)process%, %(method)finish%. %(method)Process% stage is main - this is where %(struct)affect% is supposed to alter object. %(method)Prepare% allows configuring current step, for exmaple populate some affects with data from others before %(method)process%. %(method)Finish% alters objects according to results of %(method)process% stage, for example change Jazz's appearance.
+
+%(struct)Event% *is an* %(struct)affect% implementing event capturing - collision with the rabbit or bullet. Perform bindable %(struct)action%.
+%(struct)Action% - any special altering logic performed in respond to the event. Hurting, healing or adding ammo - are logics implemented.
+
+%(struct)Affect%, %(struct)Action% and %(struct)Object% implements _%(struct)IConfigurable%_ - interface for setting nested properties of type NAME=VALUE. %(struct)Object% can contain any number of %(struct)Affect%. %(struct)Affect% can contain any number of %(struct)Action%.
