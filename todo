@@ -1,2 +1,9 @@
-add graphic loader.
-finish landscape loading. make it work.
+1. finish landscape loading. make it work.
+2. clean all code to just:
+  - take a fake xml loader
+  - build landscape
+  - display it
+3. add predefined Jazz
+4. add Misc controller
+5. design and add bonuses
+oo. add graphic loader.
