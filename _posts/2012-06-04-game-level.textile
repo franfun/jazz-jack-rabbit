@@ -31,3 +31,7 @@ Object behaviour is controlled by %(struct)Affect% s
 %(struct)Action% - any special altering logic performed in respond to the event. Hurting, healing or adding ammo - are logics implemented.
 
 %(struct)Affect%, %(struct)Action% and %(struct)Object% implements _%(struct)IConfigurable%_ - interface for setting nested properties of type NAME=VALUE. %(struct)Object% can contain any number of %(struct)Affect%. %(struct)Affect% can contain any number of %(struct)Action%.
+
+%(struct)AffectHive% - List of %(struct)Affects% available for construction via %(struct)Properties%
+
+%(struct)ActinHive% - List of %(struct)Actions% available for construction via %(struct)Properties%

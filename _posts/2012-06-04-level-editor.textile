@@ -19,7 +19,7 @@ Game Levels are built using "tiled":http://www.mapeditor.org/ . This way levels 
 * %(attribute)tilewidth%, %(attribute)tileheight% - size of tiles used in this tileset.
 * %(attribute)name% - name of the tileset.
 
-Each %(struct)tile% can contain own %(struct)properties%. Tiles are referenced by id=GID.
+Each %(struct)tile% can contain own %(struct)properties%. Tiles are referenced by id=GID. Tileset's tile properties contains global for all objects, using this tileset's tile(s), properties. These can be adjusted in %(struct)ObjectGroups'% %(struct)object% properties. %(struct)Tile% is a matter for %(struct)ObjectPrototype% of the game.
 
 %(struct)Layer% - Layer of the map. This is built with sequence of tiles listed one by one.
 * %(struct)Data% - List of tiles in the layer. These are GIDs of tiles.
@@ -27,7 +27,7 @@ Each %(struct)tile% can contain own %(struct)properties%. Tiles are referenced b
 ** %(attribute)ecoding* - Way, the tiles' GIDs are listed. CSV - coma separated list.
 
 %(struct)ObjectGroup% - Group of objects.
-* %(struct)object% - describes single object on the map.
+* %(struct)object% - describes single object on the map. Properties describe per-object special properties.
 ** %(attribute)name% - name of the object.
 ** %(attribute)type% - type of the object.
 ** %(attribute)gid% - gid of the object, used to display it in editor.
