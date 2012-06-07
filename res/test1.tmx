@@ -10,7 +10,7 @@
   <properties>
    <property name="g-type" value="landscape"/>
   </properties>
-  <image source="diamondus-aligned-indexed.png" width="320" height="640"/>
+  <image source="diamondus-aligned.png" width="320" height="640"/>
  </tileset>
  <layer name="down" width="5" height="10">
   <data encoding="csv">

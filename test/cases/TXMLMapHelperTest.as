@@ -21,11 +21,15 @@ package cases {
       var ls:TLandscape = parser.parseLandscapeLayer(levelXML.layer[0]);
 
       Assert.assertEquals("level data", 1, ls.data[5][2]);
+      Assert.assertNotNull("graphic exists", ls.graphic);
+      Assert.assertNotNull("graphic source exists", ls.graphic.source);
+      Assert.assertEquals("landscape source file", "diamondus-aligned-indexed.png", ls.graphic.source.source);
 
       // get next layer data
       ls = parser.parseLandscapeLayer(levelXML.layer[1]);
 
       Assert.assertEquals("level data", 71, ls.data[5][2]);
+      Assert.assertEquals("landscape source file", "diamondus-aligned.png", ls.graphic.source.source);
     }
   }
 }

@@ -1,8 +1,10 @@
 package net.jazz.game.map {
   import net.jazz.game.data.TProperties;
+  import net.jazz.game.core.TGraphic;
+  import net.jazz.game.core.graphic.TTileset;
 
   public class TXMLMapHelper {
-    private var mLandscapeProtos:Vector.<TLandscapeProto> = new Vector.<TLandscapeProto>();
+    protected var mGs:Vector.<TG> = new Vector.<TG>();
     private var mLayerCount:uint = 0;
 
     public function addTileset(node:XML):void {
@@ -13,9 +15,8 @@ package net.jazz.game.map {
       var gt:String = nodeProps.remove("g-type") as String;
       switch(gt) {
       case "landscape":
-        var lp:TLandscapeProto = new TLandscapeProto();
-        lp.setProperties(nodeProps);
-        mLandscapeProtos.push(lp);
+        var t:TTileset = new TTileset(nodeProps);
+        mGs.push(new TG(uint(nodeProps.remove("firstgid")), t));
         break;
       case "spritemap":
         throw new Error("Spritemap not yet Parsable");
@@ -61,56 +62,27 @@ package net.jazz.game.map {
       var k:uint = 0; // tile proto index
       for(i = 0; i < height; ++i) {
         for(j = 0; j < width; ++j) {
-          for(; k < mLandscapeProtos.length; ++k)
-            if(mLandscapeProtos[k].firstgid <= data[i][j] &&
-               mLandscapeProtos[k].lastgid > data[i][j]) break;
-          try {
-            data[i][j] = data[i][j] - mLandscapeProtos[k].firstgid;
-          } catch(e:Error) {
-            throw new Error(mLandscapeProtos[0].firstgid + " -> " + mLandscapeProtos[0].lastgid);
+          for(; k < mGs.length; ++k) {
+            if(mGs[k].fgid <= data[i][j] && mGs[k].lgid > data[i][j]) break;
           }
+          data[i][j] = data[i][j] - mGs[k].fgid;
         }
       }
 
-      return mLandscapeProtos[k].buildLandscape(data, layerID, layerType);
+      return new TLandscape(mGs[k].g as TTileset, data, layerID, layerType);
     }
   }
 }
 
-import net.jazz.game.core.IConfigurable;
-import net.jazz.game.data.TProperties;
-import net.jazz.game.map.TLandscape;
+import net.jazz.game.core.TGraphic;
 
-class TLandscapeProto implements IConfigurable {
-  public var name:String;
-  public var firstgid:uint;
-  public var lastgid:uint = 0;
-  public var tilewidth:Number;
-  public var tileheight:Number;
-  public var width:Number;
-  public var height:Number;
-  public var source:String;
-  public var maskSource:String = null;
+class TG {
+  public var fgid:uint; // first GID
+  public var lgid:uint; // last GID
+  public var g:TGraphic;
 
-  public function setProperties(p:TProperties):void {
-    name = String(p.remove("name"));
-    firstgid = uint(p.remove("firstgid"));
-    tilewidth = Number(p.remove("tilewidth"));
-    tileheight = Number(p.remove("tileheight"));
-    source = p.remove("source") as String;
-    width = Number(p.remove("width"));
-    height = Number(p.remove("height"));
-    maskSource = String(p.remove("maskSource"));
-    lastgid = firstgid + Math.round(width / tilewidth) * Math.round(height / tileheight);
-  }
-
-  public function buildLandscape(data:Array, id:uint, type:String):TLandscape {
-    var ls:TLandscape = new TLandscape();
-    ls.tilewidth = this.tilewidth;
-    ls.tileheight = this.tileheight;
-    ls.data = data;
-    ls.layer = id;
-    ls.type = type;
-    return ls;
+  public function TG(fgid:uint, g:TGraphic) {
+    this.g = g;
+    this.lgid = (this.fgid = fgid) + this.g.countTiles;
   }
 }
