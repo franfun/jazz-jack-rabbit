@@ -4,10 +4,15 @@ package net.jazz.game.core.graphic {
   import net.jazz.game.core.TGraphic;
   import net.jazz.game.data.TProperties;
 
+  import net.flashpunk.graphics.Tilemap;
+  import net.flashpunk.Graphic;
 
   public class TTileset extends TGraphic implements IConfigurable {
     public static const PROP_MASK:String = "mask";
     public var mask:TGraphicSource = null;
+
+    private var mWidth:Number;
+    private var mHeight:Number;
 
     public function TTileset(p:TProperties) {
       super(p);
@@ -16,6 +21,15 @@ package net.jazz.game.core.graphic {
     public override function setProperties(p:TProperties):void {
       super.setProperties(p);
       if(p.groups.indexOf(PROP_MASK) >= 0) mask = new TGraphicSource(p.remove(PROP_MASK) as TProperties);
+    }
+
+    public final function setSize(w:Number, h:Number):void {
+      this.mWidth = w;
+      this.mHeight = h;
+    }
+
+    public override function build():Graphic {
+      return new Tilemap(source.bitmap, mWidth, mHeight, tilewidth, tileheight);
     }
 
     // public function buildLandscape(data:Array, id:uint, type:String):TLandscape {
