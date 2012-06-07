@@ -25,7 +25,7 @@ TEST_HEIGHT:=600
 
 TEST_LIBS:=lib/flexunit-uilistener.swc:lib/flexunit4.swc
 
-DEBUG:=false
+DEBUG:=true
 
 .PHONY: clean
 
