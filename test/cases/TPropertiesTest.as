@@ -3,6 +3,15 @@ package cases {
   import net.jazz.game.data.TProperties;
 
   public class TPropertiesTest {
+    [Test(description = "remove(group) seam not work")]
+    public function regression1():void {
+      var pr:TProperties = new TProperties();
+      pr.add("onCollide/bonus/score", "150");
+      pr.add("onCollide/bonus/sound", "ding");
+      var group:Object = pr.removeGroup("onCollide");
+      Assert.assertNotNull("removing group has to be not null", group);
+    }
+
     [Test(description = "test simple operations")]
     public function doTests():void {
       var pr:TProperties = new TProperties();

@@ -20,7 +20,7 @@ package net.jazz.game.core.graphic {
 
     public override function setProperties(p:TProperties):void {
       super.setProperties(p);
-      if(p.groups.indexOf(PROP_MASK) >= 0) mask = new TGraphicSource(p.remove(PROP_MASK) as TProperties);
+      if(p.groups.indexOf(PROP_MASK) >= 0) mask = new TGraphicSource(p.removeGroup(PROP_MASK));
     }
 
     public final function setSize(w:Number, h:Number):void {

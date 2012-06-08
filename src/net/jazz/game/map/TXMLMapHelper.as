@@ -8,7 +8,7 @@ package net.jazz.game.map {
     private var mLayerCount:uint = 0;
 
     public function addTileset(node:XML):void {
-      var nodeProps:TProperties = new TProperties(node.properties[0]);
+      var nodeProps:TProperties = new TProperties(node.properties ? node.properties[0] : null);
 
       nodeProps.fromAttributes(node);
       nodeProps.fromAttributes(node.image[0]);
@@ -36,12 +36,12 @@ package net.jazz.game.map {
 
     public function parseLandscapeLayer(node:XML):TLandscape {
       var i:uint, j:uint;
-      var p:TProperties = new TProperties(node);
+      var p:TProperties = new TProperties(node.properties ? node.properties[0] : null);
       p.fromAttributes(node);
       var width:uint = uint(p.find("width"));
       var height:uint = uint(p.find("height"));
       var layerID:uint = mLayerCount++;
-      var layerType:String = p.find("type", "none") as String;
+      var layerType:String = p.find("type", "") as String;
       var isMasked:Boolean = p.find("isMasked", "no") == "yes";
 
       var data:Array = new Array;

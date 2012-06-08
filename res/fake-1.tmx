@@ -3,6 +3,7 @@
  <tileset firstgid="1" name="diamondus" tilewidth="32" tileheight="32">
   <properties>
    <property name="g-type" value="landscape"/>
+   <property name="mask/source" value="diamondus-hit-all.png"/>
   </properties>
   <image source="diamondus-aligned-indexed.png" width="320" height="640"/>
  </tileset>
@@ -17,7 +18,7 @@
 119,146,146,146,146,146,146,146,146,146
 </data>
  </layer>
- <layer name="backgound-1" width="10" height="7" visible="0">
+ <layer name="backgound-1" width="10" height="7">
   <data encoding="csv">
 160,160,160,160,160,160,160,160,160,160,
 160,160,160,160,160,160,160,160,160,160,
@@ -28,7 +29,24 @@
 160,114,115,116,117,119,120,114,115,121
 </data>
  </layer>
- <layer name="foreground" width="10" height="7" visible="0">
+ <layer name="trees" width="10" height="7">
+  <properties>
+   <property name="type" value="transparent"/>
+  </properties>
+  <data encoding="csv">
+160,160,160,160,160,160,160,160,160,160,
+160,160,138,139,143,139,139,141,160,160,
+160,160,160,160,160,160,160,160,160,160,
+160,160,160,160,160,160,160,160,160,160,
+160,160,160,160,160,160,160,160,160,160,
+104,105,106,160,160,160,160,104,105,106,
+160,160,160,160,160,160,160,160,160,160
+</data>
+ </layer>
+ <layer name="foreground" width="10" height="7">
+  <properties>
+   <property name="type" value="solid"/>
+  </properties>
   <data encoding="csv">
 160,160,160,160,160,160,160,160,160,160,
 160,160,160,160,160,160,160,160,160,160,

@@ -10,6 +10,8 @@ package net.jazz.game.core {
 
     [Embed(source="../../../../../res/diamondus-aligned-indexed.png")]
     protected var Tiles:Class;
+    [Embed(source="../../../../../res/diamondus-hit-all.png")]
+    protected var TilesHit:Class;
 
     public var source:String = null;
     public function TGraphicSource(props:TProperties = null) {
@@ -17,12 +19,17 @@ package net.jazz.game.core {
     }
 
     public function setProperties(p:TProperties):void {
-      if(p.keys.indexOf(PROP_IMAGE_SOURCE) >= 0 )
-        source = String(p.remove(PROP_IMAGE_SOURCE));
+      if(p.keys.indexOf(PROP_IMAGE_SOURCE) >= 0 ) source = String(p.remove(PROP_IMAGE_SOURCE));
     }
 
     public function get bitmap():BitmapData {
-      return Bitmap(new Tiles()).bitmapData;
+      switch(source) {
+      case "diamondus-aligned-indexed.png":
+        return Bitmap(new Tiles()).bitmapData;
+      case "diamondus-hit-all.png":
+        return Bitmap(new TilesHit()).bitmapData;
+      };
+      return null;
     }
   }
 }

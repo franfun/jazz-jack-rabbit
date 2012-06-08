@@ -54,19 +54,20 @@ package net.jazz.game.data {
 
     public function removeGroup(name:String):TProperties {
       if(mGroups.indexOf(name) < 0) return null;
+      var gr:TProperties = findGroup(name);
       mGroups.splice(mGroups.indexOf(name), 1);
       mKeys.splice(mKeys.indexOf(name), 1);
-      var gr:TProperties = mSettings[name];
       delete mSettings[name];
       return gr;
     }
 
     public function remove(name:String):Object {
-      var res:Object = find(name);
-      if(mKeys.indexOf(name) >= 0)
-        mKeys.splice(mKeys.indexOf(name), 1);
-      if(mGroups.indexOf(name) >= 0)
-        mGroups.splice(mGroups.indexOf(name), 1);
+      var res:Object = null;
+      if(mGroups.indexOf(name) >= 0) throw new Error("TProperties.remove: tryed to remove group!");
+      if(mKeys.indexOf(name) >= 0) {
+        res = find(name); // only if this was not a group
+       mKeys.splice(mKeys.indexOf(name), 1);
+       }
       delete mSettings[name];
       return res;
     }
