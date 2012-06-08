@@ -11,7 +11,7 @@ package net.jazz.game.affects {
     private var mJump:TJump;
     private var mShoot:TShoot;
 
-    public function TKeyboard(control:TControl, jump:TJump, shoot:TShoot) {
+    public function TKeyboard(control:TControl, jump:TJump = null, shoot:TShoot = null) {
       mControl = control;
       mJump = jump;
       mShoot = shoot;
@@ -29,13 +29,17 @@ package net.jazz.game.affects {
       if(Input.pressed(Key.LEFT)) mControl.StartLeft();
       if(Input.released(Key.LEFT)) mControl.StopLeft();
 
-      if(Input.pressed(Key.UP)) mJump.StartJump();
-      if(Input.released(Key.UP)) mJump.StopJump();
+      if(mJump) {
+        if(Input.pressed(Key.UP)) mJump.StartJump();
+        if(Input.released(Key.UP)) mJump.StopJump();
+      }
 
-      if(Input.pressed(Key.SPACE)) mShoot.StartShoot();
-      if(Input.released(Key.SPACE)) mShoot.StopShoot();
+      if(mShoot) {
+        if(Input.pressed(Key.SPACE)) mShoot.StartShoot();
+        if(Input.released(Key.SPACE)) mShoot.StopShoot();
 
-      if(Input.pressed(Key.CONTROL)) mShoot.nextWeapon();
+        if(Input.pressed(Key.CONTROL)) mShoot.nextWeapon();
+      }
     }
   }
 }

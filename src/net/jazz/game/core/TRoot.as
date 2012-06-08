@@ -18,6 +18,7 @@ package net.jazz.game.core {
   import net.jazz.game.affects.TJump;
   import net.jazz.game.affects.TShoot;
   import net.jazz.game.affects.TCircleWalk;
+  import net.jazz.game.affects.TCameraWatch;
 
   import net.jazz.game.map.IMap;
   import net.jazz.game.map.TFakeMap;
@@ -45,7 +46,7 @@ package net.jazz.game.core {
       super(w, h, fps, tick);
 
       FP.screen.scale = 2;
-      // FP.console.enable();
+      FP.console.enable();
     }
 
     // public function get misc():TMisc { return mMisc; }
@@ -76,24 +77,28 @@ package net.jazz.game.core {
     private function LoadDone():void {
       mMap.install(mLevel);
 
-      // var control:TControl = new TControl();
-      // var gravity:TGravity = new TGravity();
+      var control:TControl = new TControl();
+      var gravity:TGravity = new TGravity();
       // var shoot:TShoot = new TShoot(mLevel, mLevel.misc.getAffect(TWeaponChanger) as TWeaponChanger);
-      // var jump:TJump = new TJump(mLevel, gravity, control);
+      var jump:TJump = new TJump(mLevel, gravity, control);
       // var keyboard:TKeyboard = new TKeyboard(control, jump, shoot);
+      var keyboard:TKeyboard = new TKeyboard(control, jump);
       // var animator:TRabbitAnimator = new TRabbitAnimator(gravity, control, shoot);
+      var animator:TRabbitAnimator = new TRabbitAnimator(gravity, control);
       // var life:TRabbitLife = new TRabbitLife(mLevel.misc.canvas, onDeath);
+      var watcher:TCameraWatch = new TCameraWatch;
 
-      // mJazz = new TRabbit();
-      // mJazz.addAffect(control);
-      // mJazz.addAffect(keyboard);
-      // mJazz.addAffect(gravity);
-      // mJazz.addAffect(jump);
-      // mJazz.addAffect(animator);
+      var mJazz:TRabbit = new TRabbit();
+      mJazz.addAffect(control);
+      mJazz.addAffect(keyboard);
+      mJazz.addAffect(gravity);
+      mJazz.addAffect(jump);
+      mJazz.addAffect(animator);
+      mJazz.addAffect(watcher);
       // mJazz.addAffect(shoot);
       // mJazz.addAffect(life);
 
-      // mLevel.AddJazz(mJazz);
+      mLevel.AddJazz(mJazz);
 
       FP.world = mLevel;
     }

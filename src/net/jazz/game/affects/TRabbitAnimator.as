@@ -14,7 +14,7 @@ package net.jazz.game.affects {
 
     private var mIsAnimating:Boolean = true;
 
-    public function TRabbitAnimator(gravity:TGravity, control:TControl, shoot:TShoot) {
+    public function TRabbitAnimator(gravity:TGravity, control:TControl, shoot:TShoot = null) {
       mGravity = gravity;
       mControl = control;
       mShoot = shoot;
@@ -56,7 +56,7 @@ package net.jazz.game.affects {
           rabbit.flipped = orient > 0;
         }
         else {
-          if(mShoot.shooted) {
+          if(mShoot && mShoot.shooted) {
             mShoot.shooted = false;
             rabbit.Play("shoot");
           } else rabbit.Play("stand");

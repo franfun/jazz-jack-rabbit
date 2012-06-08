@@ -5,7 +5,6 @@ package net.jazz.game.core {
 
   import net.flashpunk.World;
   import net.flashpunk.Entity;
-  import net.flashpunk.FP;
   import net.flashpunk.graphics.Graphiclist;
   import net.flashpunk.graphics.Tilemap;
   import net.flashpunk.graphics.Stamp;
@@ -45,8 +44,6 @@ package net.jazz.game.core {
       for each(af in mToDelete) removeAffectable(af);
       mToDelete = [];
 
-      FP.camera.x = Math.max(0, mJazz.x - 160);
-      FP.camera.y = Math.max(0, mJazz.y - 100);
       super.update();
     }
 
