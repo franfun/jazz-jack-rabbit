@@ -39,7 +39,7 @@ package net.jazz.game.core {
     // private var mFadeLevel:Number = 1;
     // private var mFadeSpeed:Number = 0;
 
-    // private var mMisc:TMisc;
+    private var mMisc:TMisc;
     // private var mJazz:TRabbit;
 
     public function TRoot(w:uint, h:uint, fps:uint, tick:Boolean) {
@@ -49,7 +49,7 @@ package net.jazz.game.core {
       FP.console.enable();
     }
 
-    // public function get misc():TMisc { return mMisc; }
+    public function get misc():TMisc { return mMisc; }
 
     // private var r:uint = 0;
     // public override function render():void {
@@ -68,24 +68,20 @@ package net.jazz.game.core {
 
     public function StartLevel():void {
       mLevel = new TLevel;
-      // mLevel.addMisc(mMisc = new TMisc);
+      mLevel.addMisc(mMisc = new TMisc);
 
       mMap = new TFakeMap();
       mMap.load(LoadDone);
     }
 
     private function LoadDone():void {
-      mMap.install(mLevel);
-
       var control:TControl = new TControl();
       var gravity:TGravity = new TGravity();
-      // var shoot:TShoot = new TShoot(mLevel, mLevel.misc.getAffect(TWeaponChanger) as TWeaponChanger);
+      var shoot:TShoot = new TShoot(mLevel, mLevel.misc.getAffect(TWeaponChanger) as TWeaponChanger);
       var jump:TJump = new TJump(mLevel, gravity, control);
-      // var keyboard:TKeyboard = new TKeyboard(control, jump, shoot);
-      var keyboard:TKeyboard = new TKeyboard(control, jump);
-      // var animator:TRabbitAnimator = new TRabbitAnimator(gravity, control, shoot);
-      var animator:TRabbitAnimator = new TRabbitAnimator(gravity, control);
-      // var life:TRabbitLife = new TRabbitLife(mLevel.misc.canvas, onDeath);
+      var keyboard:TKeyboard = new TKeyboard(control, jump, shoot);
+      var animator:TRabbitAnimator = new TRabbitAnimator(gravity, control, shoot);
+      var life:TRabbitLife = new TRabbitLife(mLevel.misc.canvas, onDeath);
       var watcher:TCameraWatch = new TCameraWatch;
 
       var mJazz:TRabbit = new TRabbit();
@@ -95,10 +91,12 @@ package net.jazz.game.core {
       mJazz.addAffect(jump);
       mJazz.addAffect(animator);
       mJazz.addAffect(watcher);
-      // mJazz.addAffect(shoot);
-      // mJazz.addAffect(life);
+      mJazz.addAffect(shoot);
+      mJazz.addAffect(life);
 
       mLevel.AddJazz(mJazz);
+
+      mMap.install(mLevel);
 
       FP.world = mLevel;
     }

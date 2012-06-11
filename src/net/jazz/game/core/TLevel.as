@@ -85,7 +85,6 @@ package net.jazz.game.core {
     public function AddJazz(jazz:TRabbit):void {
       mJazz = jazz;
       add(jazz);
-      jazz.layer = JAZZ_LAYER;
     }
 
     public function get jazz():TRabbit { return mJazz; }

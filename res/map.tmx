@@ -6,6 +6,7 @@
  <tileset firstgid="1" name="diamondus-aligned" tilewidth="32" tileheight="32">
   <properties>
    <property name="g-type" value="landscape"/>
+   <property name="mask/source" value="diamondus-hit-all.png"/>
   </properties>
   <image source="diamondus-aligned-indexed.png" trans="ff00ff" width="320" height="640"/>
   <tile id="0">
@@ -402,6 +403,27 @@
  </tileset>
  <tileset firstgid="235" name="jazz" tilewidth="32" tileheight="36">
   <properties>
+   <property name="anim/die/frame-rate" value="10"/>
+   <property name="anim/die/frames" value="18-25"/>
+   <property name="anim/die/repeat" value="false"/>
+   <property name="anim/duck/frame-rate" value="2"/>
+   <property name="anim/duck/frames" value="14-15"/>
+   <property name="anim/fall/frames" value="13"/>
+   <property name="anim/fury-jump/frame-rate" value="8"/>
+   <property name="anim/fury-jump/frames" value="31-34"/>
+   <property name="anim/hurt/frame-rate" value="6"/>
+   <property name="anim/hurt/frames" value="28-30"/>
+   <property name="anim/jump/frames" value="26"/>
+   <property name="anim/run/frame-rate" value="16"/>
+   <property name="anim/run/frames" value="1-4"/>
+   <property name="anim/shoot/frame-rate" value="4"/>
+   <property name="anim/shoot/frames" value="16-17"/>
+   <property name="anim/stand/frames" value="0"/>
+   <property name="anim/stop/frames" value="5-6"/>
+   <property name="anim/walk/frame-rate" value="10"/>
+   <property name="anim/walk/frames" value="7-12"/>
+   <property name="anim/whazzup/frame-rate" value="5"/>
+   <property name="anim/whazzup/frames" value="35-40"/>
    <property name="g-hitbox" value="-5,-6,22,30"/>
    <property name="g-type" value="spritemap"/>
   </properties>
@@ -527,7 +549,6 @@
  </layer>
  <layer name="transparent" width="120" height="40">
   <properties>
-   <property name="isMasked" value="yes"/>
    <property name="type" value="transparent"/>
   </properties>
   <data encoding="csv">
@@ -575,7 +596,6 @@
  </layer>
  <layer name="level" width="120" height="40">
   <properties>
-   <property name="isMasked" value="yes"/>
    <property name="type" value="solid"/>
   </properties>
   <data encoding="csv">
@@ -621,6 +641,9 @@
 81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81
 </data>
  </layer>
+ <objectgroup name="objects" width="120" height="40">
+  <object name="jazz" gid="235" x="352" y="90"/>
+ </objectgroup>
  <layer name="foreground" width="120" height="40">
   <data encoding="csv">
 81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,
@@ -665,7 +688,7 @@
 81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81
 </data>
  </layer>
- <objectgroup name="objects" width="120" height="40">
+ <objectgroup name="objects" width="120" height="40" visible="0">
   <object type="enemy" gid="201" x="65" y="383">
    <properties>
     <property name="life" value="2"/>
@@ -856,7 +879,6 @@
   <object gid="36" x="3520" y="544"/>
   <object gid="36" x="3552" y="544"/>
   <object gid="36" x="3584" y="544"/>
-  <object gid="235" x="0" y="32"/>
   <object gid="277" x="3712" y="352"/>
  </objectgroup>
 </map>

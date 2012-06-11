@@ -37,8 +37,8 @@ package net.jazz.game.map {
     // protected var Tortail:Class;
     // [Embed(source="../../../../../res/bee1.png")]
     // protected var Bee:Class;
-    // [Embed(source="../../../../../res/map.tmx", mimeType="application/octet-stream")]
-    // protected var DiamondusMap1:Class;
+    [Embed(source="../../../../../res/map.tmx", mimeType="application/octet-stream")]
+    protected var DiamondusMap1:Class;
     [Embed(source="../../../../../res/fake-1.tmx", mimeType="application/octet-stream")]
     protected var FakeMap1:Class;
 
@@ -76,7 +76,7 @@ package net.jazz.game.map {
     // }
 
     protected final override function doLoad():void {
-      var levelXML:XML = XML(new FakeMap1);
+      var levelXML:XML = XML(new DiamondusMap1);
 
       var helper:TXMLMapHelper = new TXMLMapHelper;
 
@@ -92,7 +92,11 @@ package net.jazz.game.map {
       // setLevelSize(w, h);
 
       for each(var tileset:XML in levelXML.tileset) {
+          try {
         helper.addTileset(tileset);
+          } catch(e:Error) {
+            trace(e);
+          }
           // var gid:int = tileset.@firstgid;
           // var name:String = tileset.@name;
           // var tsw:uint = tileset.@tilewidth;
@@ -134,11 +138,15 @@ package net.jazz.game.map {
 
       var layers:Vector.<XML> = new Vector.<XML>;
       for each(var layer:XML in levelXML.layer) {
-          layers.push(layer);
+            layers.push(layer);
         }
 
       while(layers.length > 0) {
-        addLandscape(helper.parseLandscapeLayer(layers.pop()));
+        try {
+            addLandscape(helper.parseLandscapeLayer(layers.pop()));
+        } catch(e:Error) {
+          trace(e);
+        }
         // var key:String;
         // // if(layer.@name.substr(0, 11) == "background-") key = "bg" + layer.@name.substr(11);
         // // else if(layer.@name.substr(0, 11) == "foreground-") key = "fg" + layer.@name.substr(11);

@@ -12,6 +12,8 @@ package net.jazz.game.core {
     protected var Tiles:Class;
     [Embed(source="../../../../../res/diamondus-hit-all.png")]
     protected var TilesHit:Class;
+    [Embed(source = '../../../../../res/jazz-aligned.png')]
+    private const JAZZ:Class;
 
     public var source:String = null;
     public function TGraphicSource(props:TProperties = null) {
@@ -28,6 +30,8 @@ package net.jazz.game.core {
         return Bitmap(new Tiles()).bitmapData;
       case "diamondus-hit-all.png":
         return Bitmap(new TilesHit()).bitmapData;
+      case "jazz-aligned.png":
+        return Bitmap(new JAZZ()).bitmapData;
       };
       return null;
     }

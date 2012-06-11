@@ -37,40 +37,11 @@ package net.jazz.game.map {
     // [Embed(source="../../../../../res/sounds/shootBig.mp3")]
     // protected static var ShootBig:Class;
 
-    // public static const FG_LAYER:uint = 10;
-    // public static const LVL_LAYER:uint = 40;
-    // public static const BG_LAYER:uint = 70;
-    // public static const HIT_LAYER:uint = 70;
-    // public static const HITTR_LAYER:uint = 70;
-
-    // protected var mTilesHit:Class;
-    // protected var mTilesTr:Class;
-    // protected var mForeground:Class;
-
     // private var mObjects:Array = [];
 
     private var mCallback:Function;
 
     public function TBaseMap() {
-      // mForegrounds[0].graphic = new Graphiclist();
-      // mForegrounds[0].layer = FG_LAYER;
-
-      // mLevel.graphic = new Graphiclist();
-      // mLevel.layer = LVL_LAYER;
-
-      // mBackgrounds[0].graphic = new Graphiclist();
-      // mBackgrounds[0].layer = BG_LAYER + 1;
-      // mBackgrounds[1].graphic = new Graphiclist();
-      // mBackgrounds[1].layer = BG_LAYER;
-
-      // mHitArea.layer = HIT_LAYER;
-      // mHitArea.mask = new Masklist();
-      // mHitArea.type = "solid";
-
-      // mHitAreaTr.graphic = new Graphiclist();
-      // mHitAreaTr.layer = HITTR_LAYER;
-      // mHitAreaTr.mask = new Masklist();
-      // mHitAreaTr.type = "transparent";
     }
 
     public final function load(callback:Function):void {
