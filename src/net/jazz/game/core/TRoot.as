@@ -10,19 +10,8 @@ package net.jazz.game.core {
   import net.flashpunk.utils.TouchPad;
   import net.flashpunk.graphics.Image;
 
-  import net.jazz.game.affects.TControl;
-  import net.jazz.game.affects.TGravity;
-  import net.jazz.game.affects.TKeyboard;
-  import net.jazz.game.affects.TRabbitAnimator;
-  import net.jazz.game.affects.TRabbitLife;
-  import net.jazz.game.affects.TJump;
-  import net.jazz.game.affects.TShoot;
-  import net.jazz.game.affects.TCircleWalk;
-  import net.jazz.game.affects.TCameraWatch;
-
   import net.jazz.game.map.IMap;
   import net.jazz.game.map.TFakeMap;
-  import net.jazz.game.affects.TWeaponChanger;
 
   public class TRoot extends Engine {
 //     private var mColors:Array = [[0xff00007c, 0xff0404a0, 0xff0c0cc8, 0xff1814e0, 0xff2824fc, 0xff544cfc, 0xff8074fc,
@@ -34,6 +23,7 @@ package net.jazz.game.core {
 
     private var mLevel:TLevel;
     private var mMap:IMap;
+    private var mAffectBuilder:TAffectBuilder;
 
     // private var mOnFadedCallback:Function;
     // private var mFadeLevel:Number = 1;
@@ -68,31 +58,25 @@ package net.jazz.game.core {
 
     public function StartLevel():void {
       mLevel = new TLevel;
-      mLevel.addMisc(mMisc = new TMisc);
+      mAffectBuilder = new TAffectBuilder();
+      mLevel.addMisc(mMisc = new TMisc(mAffectBuilder));
 
       mMap = new TFakeMap();
       mMap.load(LoadDone);
     }
 
     private function LoadDone():void {
-      var control:TControl = new TControl();
-      var gravity:TGravity = new TGravity();
-      var shoot:TShoot = new TShoot(mLevel, mLevel.misc.getAffect(TWeaponChanger) as TWeaponChanger);
-      var jump:TJump = new TJump(mLevel, gravity, control);
-      var keyboard:TKeyboard = new TKeyboard(control, jump, shoot);
-      var animator:TRabbitAnimator = new TRabbitAnimator(gravity, control, shoot);
-      var life:TRabbitLife = new TRabbitLife(mLevel.misc.canvas, onDeath);
-      var watcher:TCameraWatch = new TCameraWatch;
+      // var life:TRabbitLife = new TRabbitLife(mLevel.misc.canvas, onDeath);
 
       var mJazz:TRabbit = new TRabbit();
-      mJazz.addAffect(control);
-      mJazz.addAffect(keyboard);
-      mJazz.addAffect(gravity);
-      mJazz.addAffect(jump);
-      mJazz.addAffect(animator);
-      mJazz.addAffect(watcher);
-      mJazz.addAffect(shoot);
-      mJazz.addAffect(life);
+      mJazz.addAffect(mAffectBuilder.getByName("control"));
+      mJazz.addAffect(mAffectBuilder.getByName("keyboard"));
+      mJazz.addAffect(mAffectBuilder.getByName("gravity"));
+      mJazz.addAffect(mAffectBuilder.getByName("jump"));
+      mJazz.addAffect(mAffectBuilder.getByName("rabbit-animator"));
+      mJazz.addAffect(mAffectBuilder.getByName("camera-watch"));
+      mJazz.addAffect(mAffectBuilder.getByName("shoot"));
+      // mJazz.addAffect(life);
 
       mLevel.AddJazz(mJazz);
 

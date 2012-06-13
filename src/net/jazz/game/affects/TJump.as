@@ -22,13 +22,14 @@ package net.jazz.game.affects {
     private var mJumped:Boolean = false;
     private var mDur:uint = 0;
 
-    public function TJump(bounds:TLevel, gravity:TGravity, control:TControl):void {
-      mBounds = bounds;
+    public function TJump(gravity:TGravity, control:TControl):void {
       mGravity = gravity;
       mControl = control;
 
       mJumpSound = new Sfx(JumpSound);
     }
+
+    public function set bounds(bounds:TLevel):void { mBounds = bounds; }
 
     public function StartJump():void {
       mIsJumping = true;

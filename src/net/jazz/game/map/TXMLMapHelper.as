@@ -19,7 +19,8 @@ package net.jazz.game.map {
         mGs.push(new TG(uint(nodeProps.remove("firstgid")), t));
         break;
       case "spritemap":
-        throw new Error("Spritemap not yet Parsable");
+        // var s:TSpritemap = new TSpritemap(nodeProps);
+        // mGs.push(new TG(uint(nodeProps.remove("firstgid")), s));
         break;
       case "images":
         throw new Error("Images not yet Parsable");

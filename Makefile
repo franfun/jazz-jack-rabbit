@@ -29,6 +29,7 @@ TEST_APP:=test.swf
 TEST_WIDTH:=800
 TEST_HEIGHT:=600
 
+APP_LIBS:=lib/picoContainer.swc
 TEST_LIBS:=lib/flexunit-uilistener.swc:lib/flexunit4.swc
 
 DEBUG:=true
@@ -46,7 +47,7 @@ ${DEST_DIR}/${TEST_APP}: ${TEST_DIR}/${TEST_APP_NAME} ${TEST_RUNNER_SRC} ${TEST_
            --default-background-color ${BG_COLOR} \
            --load-config+=${CONFIG_NAME} \
            --debug=${DEBUG} \
-           --library-path+=${TEST_LIBS} \
+           --library-path+=${TEST_LIBS}:${APP_LIBS} \
            ${TEST_DIR}/${TEST_APP_NAME}
 
 ${DEST_DIR}/${DEST_NAME}: ${SRC_DIR}/${APP_NAME} Makefile ${MAPS_SRC} ${DATA_SRC} ${CORE_SRC} ${CORE_GRAPHIC_SRC}
@@ -54,6 +55,7 @@ ${DEST_DIR}/${DEST_NAME}: ${SRC_DIR}/${APP_NAME} Makefile ${MAPS_SRC} ${DATA_SRC
            --output ${DEST_DIR}/${DEST_NAME} \
            --default-size ${TEST_WIDTH} ${TEST_HEIGHT} \
            --default-background-color ${BG_COLOR} \
+           --library-path+=${APP_LIBS} \
            --load-config+=${CONFIG_NAME} \
            --debug=${DEBUG} \
            ${SRC_DIR}/${APP_NAME}

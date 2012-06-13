@@ -35,8 +35,7 @@ package net.jazz.game.affects {
      */
     public var shooted:Boolean = false;
 
-    public function TShoot(level:TLevel, wc:TWeaponChanger):void {
-      mLevel = level;
+    public function TShoot(wc:TWeaponChanger):void {
       mShootSounds.push(new Sfx(BlasterSound));
       mShootSounds.push(new Sfx(ToasterSound));
       mShootSounds.push(new Sfx(RFMissileSound));
@@ -44,6 +43,8 @@ package net.jazz.game.affects {
       mWC = wc;
       mWC.updateAmmoCount(mAmmo[mType]);
     }
+
+    public function set level(lvl:TLevel):void { mLevel = lvl; }
 
     public function StartShoot():void {
       mIsShooting= true;

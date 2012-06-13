@@ -14,8 +14,8 @@ package net.jazz.game.affects {
     private var mCanvas:Canvas;
     private var mTime:int = 0;
 
-    public function TTimer(time:int) {
-      this.time = time;
+    public function TTimer() {
+      this.time = 10 * 60 * 1000 - 1;
     }
 
     public function get time():int { return mTime; }
