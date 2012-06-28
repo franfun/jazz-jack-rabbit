@@ -3,7 +3,6 @@ package net.jazz.game.affects {
   import net.flashpunk.Sfx;
 
   import net.jazz.game.core.TLevel;
-  import net.jazz.game.core.TRabbit;
   import net.jazz.game.core.TAffect;
   import net.jazz.game.core.TObject;
   import net.jazz.game.core.IAffectable;
@@ -58,9 +57,8 @@ package net.jazz.game.affects {
     private function StartAffect():void {
       mState = SUFFER;
       mHurtSound.play();
-      var rab:TRabbit = target as TRabbit;
       var rr:int = mControl.orientation;
-      rab.active = false;
+      // .active = false;
       mTime = 0;
       mControl.active = false;
       mControl.extraPower = rr * 80;
@@ -68,8 +66,7 @@ package net.jazz.game.affects {
     }
 
     private function StopSuffer():void {
-      var rab:TRabbit = target as TRabbit;
-      rab.active = true;
+      // rab.active = true;
       mTime = 0;
       mControl.active = true;
       mControl.extraPower = 0;

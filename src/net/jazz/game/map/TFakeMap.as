@@ -14,7 +14,6 @@ package net.jazz.game.map {
   import net.jazz.game.affects.TCircleWalk;
   import net.jazz.game.affects.TFloating;
   import net.jazz.game.affects.TShootable;
-  import net.jazz.game.objects.TSprite;
   import net.jazz.game.core.TLevel;
 
   /**
@@ -137,13 +136,26 @@ package net.jazz.game.map {
         }
 
       var layers:Vector.<XML> = new Vector.<XML>;
-      for each(var layer:XML in levelXML.layer) {
-            layers.push(layer);
-        }
+      for each(var layer:XML in levelXML.children()) {
+        var layerName:String = layer.name()
+;
+        if(layerName == "layer" || layerName == "objectgroup")
+          layers.push(layer);
+      }
 
       while(layers.length > 0) {
+        layer = layers.pop();
         try {
-            addLandscape(helper.parseLandscapeLayer(layers.pop()));
+          switch(layer.name().toString()) {
+          case "layer":
+            addLandscape(helper.parseLandscapeLayer(layer));
+            break;
+          case "objectgroup":
+            addObjects(helper.parseObjectLayer(layer));
+            break;
+          default:
+            trace("Unknown layer type: " + layer.name());
+          }
         } catch(e:Error) {
           trace(e);
         }

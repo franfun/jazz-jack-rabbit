@@ -7,19 +7,9 @@ package net.jazz.game.map {
   import net.jazz.game.core.TLevel;
   import net.jazz.game.objects.TImage;
   import net.jazz.game.core.TObject;
+  import net.jazz.game.core.TObjectIdea;
   import net.jazz.game.core.TAffect;
-  import net.jazz.game.objects.TSprite;
-  import net.jazz.game.affects.TKiller;
-  import net.jazz.game.affects.TCircleWalk;
-  import net.jazz.game.affects.TFreeFly;
-  import net.jazz.game.affects.TLife;
-  import net.jazz.game.affects.TWeaponAmmo;
-  import net.jazz.game.affects.TFloating;
-  import net.jazz.game.affects.TCollactable;
-  import net.jazz.game.affects.TShootable;
-  import net.jazz.game.affects.IWorker;
-  import net.jazz.game.affects.TRapidFire;
-  import net.jazz.game.affects.TCarrot;
+  import net.jazz.game.core.TAffectHive;
 
   import flash.display.Bitmap;
   import flash.display.BitmapData;
@@ -28,6 +18,7 @@ package net.jazz.game.map {
 
   public class TBaseMap implements IMap {
     private var mLandscapes:Vector.<TLandscape> = new Vector.<TLandscape>;
+    private var mObjects:Array = [];
     // [Embed(source="../../../../../res/sounds/collect.mp3")]
     // protected static var Collect:Class;
     // [Embed(source="../../../../../res/sounds/carrot.mp3")]
@@ -55,11 +46,12 @@ package net.jazz.game.map {
      *
      * @param TLevel where Level to install into.
      */
-    public function install(where:TLevel):void {
+    public function install(where:TLevel, affectHive:TAffectHive):void {
       for each(var ls:TLandscape in mLandscapes)
         where.add(ls.build());
 
-      // for each(var obj:TObject in mObjects) where.add(obj);
+      for each(var obj:TObjectIdea in mObjects)
+        if(obj) where.add(obj.build(affectHive));
     }
 
     protected final function loadDone():void {
@@ -68,6 +60,12 @@ package net.jazz.game.map {
 
     protected final function addLandscape(ls:TLandscape):void {
       mLandscapes.push(ls);
+    }
+
+    protected final function addObjects(objs:Array):void {
+      objs.unshift(mObjects.length);
+      objs.unshift(0);
+      mObjects.splice.apply(mObjects, objs);
     }
 
     protected function doLoad():void {

@@ -2,7 +2,6 @@ package net.jazz.game.affects {
   import net.jazz.game.core.TAffect;
   import net.jazz.game.core.IAffectable;
   import net.jazz.game.core.TObject;
-  import net.jazz.game.core.TRabbit;
   import net.jazz.game.core.TLevel;
   import net.jazz.game.core.IColorizable;
   import net.jazz.game.core.IBounded;

@@ -8,7 +8,6 @@ package net.jazz.game.affects {
   import net.jazz.game.core.IAffectable;
   import net.jazz.game.core.IBounded;
   import net.jazz.game.core.TRabbit;
-  import net.jazz.game.objects.TSprite;
   import net.jazz.game.objects.TBullet;
 
   public class TShootable extends TAffect implements IBounded {

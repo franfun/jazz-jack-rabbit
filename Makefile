@@ -23,7 +23,7 @@ TEST_DIR:=test
 
 TEST_APP_NAME:=TestRunner.mxml
 TEST_RUNNER_SRC:=${TEST_DIR}/TestSuite.as
-TEST_CASES_SRC:=${TEST_DIR}/cases/*
+TEST_CASES_SRC:=${TEST_DIR}/cases/*.as
 TEST_APP:=test.swf
 
 TEST_WIDTH:=800

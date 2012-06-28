@@ -13,7 +13,7 @@ package net.jazz.game.core {
     protected static var Toolbar:Class;
 
     private var mCanvas:Canvas;
-    public function TMisc(affectBuilder:TAffectBuilder) {
+    public function TMisc(affectBuilder:TAffectHive) {
       var bitmap:BitmapData = (new Toolbar as Bitmap).bitmapData;
       graphic = mCanvas = new Canvas(bitmap.width, bitmap.height);
       mCanvas.draw(0, 0, bitmap);

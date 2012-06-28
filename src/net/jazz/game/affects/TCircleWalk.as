@@ -6,7 +6,6 @@ package net.jazz.game.affects {
   import net.jazz.game.core.TAffect;
   import net.jazz.game.core.IAffectable;
   import net.jazz.game.core.IBounded;
-  import net.jazz.game.objects.TSprite;
 
   public class TCircleWalk extends TAffect {
 
@@ -18,8 +17,9 @@ package net.jazz.game.affects {
       if(dx == 0) {
         mOrient *= -1;
         dx = obj.horizontalLimitStrict(4 * mOrient);
-        var spr:TSprite = (obj as TSprite);
-        if(spr) spr.flipped = (mOrient < 0);
+        // Flip spritemap of given object
+        // var spr:TSprite = (obj as TSprite);
+        // if(spr) spr.flipped = (mOrient < 0);
       }
       obj.HorizontalMove(dx);
     }

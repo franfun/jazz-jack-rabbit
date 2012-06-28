@@ -86,5 +86,35 @@ package cases {
       Assert.assertEquals("Value", "nothing", pr.find("right", "nothing"));
       Assert.assertEquals("Value", "20", pr.find("twenty"));
     }
+
+    [Test(description = "cloning properties")]
+    public function cloneTest():void {
+      // Create
+      var pr:TProperties = new TProperties();
+      pr.value = "main";
+      pr.add("key1", "hello");
+      pr.add("key2", 12);
+      pr.add("onCollide", "bonus");
+      pr.add("onCollide/bonus/score", "150");
+
+      // Clone
+      var pr_c:TProperties = pr.clone();
+
+      // Alter
+      pr.add("key1", "wellcome");
+      pr.add("key2", 12);
+      pr.add("onCollide", "presents");
+      pr.findGroup("onCollide").findGroup("bonus").add("score", 200);
+
+      // Check
+      Assert.assertEquals("Simple key values should not changes", "hello", pr_c.find("key1"));
+      Assert.assertEquals("Simple key values should not changes", 12, pr_c.find("key2"));
+      Assert.assertEquals("Child objects should not change", "bonus", pr_c.find("onCollide"));
+      trace(pr_c.findGroup("onCollide"));
+      trace(pr_c.findGroup("onCollide").findGroup("bonus"));
+      trace(pr_c.findGroup("onCollide").findGroup("bonus").find("score"));
+      Assert.assertEquals("Child objects should not change", 150,
+                          pr_c.findGroup("onCollide").findGroup("bonus").find("score"));
+    }
   }
 }

@@ -52,20 +52,20 @@ package net.jazz.game.data {
       mSettings[""] = v;
     }
 
-    public function removeGroup(name:String):TProperties {
-      if(mGroups.indexOf(name) < 0) return null;
-      var gr:TProperties = findGroup(name);
+    public function removeGroup(name:String, def:TProperties = null):TProperties {
+      if(mGroups.indexOf(name) < 0) return def;
+      var gr:TProperties = findGroup(name, def);
       mGroups.splice(mGroups.indexOf(name), 1);
       mKeys.splice(mKeys.indexOf(name), 1);
       delete mSettings[name];
       return gr;
     }
 
-    public function remove(name:String):Object {
-      var res:Object = null;
+    public function remove(name:String, def:Object = null):Object {
+      var res:Object = def;
       if(mGroups.indexOf(name) >= 0) throw new Error("TProperties.remove: tryed to remove group!");
       if(mKeys.indexOf(name) >= 0) {
-        res = find(name); // only if this was not a group
+        res = find(name, def); // only if this was not a group
        mKeys.splice(mKeys.indexOf(name), 1);
        }
       delete mSettings[name];
@@ -89,6 +89,32 @@ package net.jazz.game.data {
     public function findGroup(name:String, def:TProperties = null):TProperties {
       if(mGroups.indexOf(name) < 0) return def;
       return mSettings[name];
+    }
+
+    public function clone():TProperties {
+      var res:TProperties = new TProperties();
+      res.value = value;
+      for each(var key:String in mKeys) {
+        if(mGroups.indexOf(key) >= 0) {
+          res.add(key, findGroup(key).clone());
+          continue;
+        }
+        var value:Object = find(key);
+        try {
+          res.add(key, value.clone());
+        } catch(e:Error) {
+          res.add(key, value);
+        }
+      }
+      return res;
+    }
+
+    public function extend(other:TProperties):void {
+      other = other.clone();
+      for each(var key:String in other.keys)
+        if(other.groups.indexOf(key) >= 0)
+          add(key, other.findGroup(key));
+        else add(key, other.find(key));
     }
   }
 }

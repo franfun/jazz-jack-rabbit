@@ -12,6 +12,18 @@ package net.jazz.game.core {
 
   import net.jazz.game.map.IMap;
   import net.jazz.game.map.TFakeMap;
+  import net.jazz.game.affects.TControl;
+  import net.jazz.game.affects.TGravity;
+  import net.jazz.game.affects.TKeyboard;
+  import net.jazz.game.affects.TRabbitAnimator;
+  import net.jazz.game.affects.TRabbitLife;
+  import net.jazz.game.affects.TJump;
+  import net.jazz.game.affects.TShoot;
+  import net.jazz.game.affects.TCircleWalk;
+  import net.jazz.game.affects.TCameraWatch;
+  import net.jazz.game.affects.TWeaponChanger;
+  import net.jazz.game.affects.TScore;
+  import net.jazz.game.affects.TTimer;
 
   public class TRoot extends Engine {
 //     private var mColors:Array = [[0xff00007c, 0xff0404a0, 0xff0c0cc8, 0xff1814e0, 0xff2824fc, 0xff544cfc, 0xff8074fc,
@@ -21,16 +33,30 @@ package net.jazz.game.core {
 // [0xfff4fc00, 0xff5c3000, 0xffac8400],
 // [0xff0058a4, 0xff00284c, 0xff0090fc]];
 
+    /**
+     * Game Level to play.
+     */
     private var mLevel:TLevel;
+    /**
+     * Map data.
+     */
     private var mMap:IMap;
-    private var mAffectBuilder:TAffectBuilder;
+    /**
+     * Level wide affects. Should be never reseted.
+     */
+    private var mGameHive:TAffectHive;
+    /**
+     * Per-object affeect builder. Resets after building each object.
+     */
+    private var mObjectHive:TAffectHive;
+    
+    private var mLevelAffectBuilder:TAffectHive;
 
     // private var mOnFadedCallback:Function;
     // private var mFadeLevel:Number = 1;
     // private var mFadeSpeed:Number = 0;
 
     private var mMisc:TMisc;
-    // private var mJazz:TRabbit;
 
     public function TRoot(w:uint, h:uint, fps:uint, tick:Boolean) {
       super(w, h, fps, tick);
@@ -57,9 +83,14 @@ package net.jazz.game.core {
     // }
 
     public function StartLevel():void {
+      buildLevelHive();
+      buildObjectHive();
+
       mLevel = new TLevel;
-      mAffectBuilder = new TAffectBuilder();
-      mLevel.addMisc(mMisc = new TMisc(mAffectBuilder));
+      mLevel.addMisc(mMisc = new TMisc(mGameHive));
+
+      var life:TRabbitLife = mObjectHive.getByName("rabbit-life") as TRabbitLife;
+      life.canvas = mMisc.canvas;
 
       mMap = new TFakeMap();
       mMap.load(LoadDone);
@@ -68,19 +99,7 @@ package net.jazz.game.core {
     private function LoadDone():void {
       // var life:TRabbitLife = new TRabbitLife(mLevel.misc.canvas, onDeath);
 
-      var mJazz:TRabbit = new TRabbit();
-      mJazz.addAffect(mAffectBuilder.getByName("control"));
-      mJazz.addAffect(mAffectBuilder.getByName("keyboard"));
-      mJazz.addAffect(mAffectBuilder.getByName("gravity"));
-      mJazz.addAffect(mAffectBuilder.getByName("jump"));
-      mJazz.addAffect(mAffectBuilder.getByName("rabbit-animator"));
-      mJazz.addAffect(mAffectBuilder.getByName("camera-watch"));
-      mJazz.addAffect(mAffectBuilder.getByName("shoot"));
-      // mJazz.addAffect(life);
-
-      mLevel.AddJazz(mJazz);
-
-      mMap.install(mLevel);
+      mMap.install(mLevel, mObjectHive);
 
       FP.world = mLevel;
     }
@@ -117,5 +136,26 @@ package net.jazz.game.core {
     //     mOnFadedCallback();
     //   }
     // }
+
+    private function buildLevelHive():void {
+      mGameHive = new TAffectHive();
+      mGameHive.pushAll({
+            score: TScore,
+            timer: TTimer,
+            gravity: TGravity,
+            "weapon-changer": TWeaponChanger});
+    }
+
+    private function buildObjectHive():void {
+      mObjectHive = new TAffectHive(mGameHive);
+      mObjectHive.pushAll({control: TControl,
+            "rabbit-animator": TRabbitAnimator,
+            "rabbit-life": TRabbitLife,
+            jump: TJump,
+            shoot: TShoot,
+            keyboard: TKeyboard,
+            "circle-walk": TCircleWalk,
+            "camera-watch": TCameraWatch});
+    }
   }
 }

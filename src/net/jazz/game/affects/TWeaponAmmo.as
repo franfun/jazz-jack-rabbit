@@ -6,7 +6,6 @@ package net.jazz.game.affects {
   import net.jazz.game.core.TAffect;
   import net.jazz.game.core.IAffectable;
   import net.jazz.game.core.IBounded;
-  import net.jazz.game.objects.TSprite;
 
   public class TWeaponAmmo extends TAffect implements IWorker {
     private var mType:uint;

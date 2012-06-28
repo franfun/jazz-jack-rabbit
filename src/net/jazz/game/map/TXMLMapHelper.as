@@ -1,7 +1,9 @@
 package net.jazz.game.map {
   import net.jazz.game.data.TProperties;
+  import net.jazz.game.core.TObjectIdea;
   import net.jazz.game.core.TGraphic;
   import net.jazz.game.core.graphic.TTileset;
+  import net.jazz.game.core.graphic.TSpritemap;
 
   public class TXMLMapHelper {
     protected var mGs:Vector.<TG> = new Vector.<TG>();
@@ -19,8 +21,9 @@ package net.jazz.game.map {
         mGs.push(new TG(uint(nodeProps.remove("firstgid")), t));
         break;
       case "spritemap":
-        // var s:TSpritemap = new TSpritemap(nodeProps);
-        // mGs.push(new TG(uint(nodeProps.remove("firstgid")), s));
+        var s:TSpritemap = new TSpritemap(nodeProps);
+        mGs.push(new TG(uint(nodeProps.remove("firstgid")), s, nodeProps));
+        trace("added spritemap");
         break;
       case "images":
         throw new Error("Images not yet Parsable");
@@ -31,8 +34,21 @@ package net.jazz.game.map {
       }
     }
 
-    private function parseObjectLayer(node:XML):void {
-      throw new Error("Object layers are not parsable yet.");
+    public function parseObjectLayer(node:XML):Array {
+      var res:Array = [];
+      var layerID:uint = mLayerCount++;
+      for each(var obj:XML in node.object) {
+        var objI:TObjectIdea = null;
+        try {
+          objI = parseObject(obj);
+        } catch(e:Error) {
+          trace(e);
+        }
+        objI.layerID = layerID;
+        res.push(objI);
+      }
+      trace("Objects : " + res.join(" :: "));
+      return res;
     }
 
     public function parseLandscapeLayer(node:XML):TLandscape {
@@ -60,30 +76,49 @@ package net.jazz.game.map {
       }
 
       // Next is going to brake if tiles come more then one tileset proto
-      var k:uint = 0; // tile proto index
-      for(i = 0; i < height; ++i) {
-        for(j = 0; j < width; ++j) {
-          for(; k < mGs.length; ++k) {
-            if(mGs[k].fgid <= data[i][j] && mGs[k].lgid > data[i][j]) break;
-          }
+      var k:int = getGByGID(data[0][0]); // tile proto index
+      for(i = 0; i < height; ++i)
+        for(j = 0; j < width; ++j)
           data[i][j] = data[i][j] - mGs[k].fgid;
-        }
-      }
 
       return new TLandscape(mGs[k].g as TTileset, data, layerID, layerType);
+    }
+
+    private function parseObject(obj:XML):TObjectIdea {
+      trace("++++ start parsing object");
+      var props:TProperties = new TProperties(obj.properties ? obj.properties[0] : null);
+      props.fromAttributes(obj);
+
+      var gid:uint = uint(props.remove("gid"));
+      var k:int = getGByGID(gid); // tile proto index
+      if(k < 0) throw new Error("Graphic for object not found. GID = " + gid);
+
+      props.extend(mGs[k].props);
+      trace("---- object building OK");
+
+      return new TObjectIdea(mGs[k].g, props);
+    }
+
+    private function getGByGID(gid:uint):int {
+      for(var k:int = 0; k < mGs.length; ++k)
+        if(mGs[k].fgid <= gid && mGs[k].lgid > gid) return k;
+      return -1;
     }
   }
 }
 
 import net.jazz.game.core.TGraphic;
+import net.jazz.game.data.TProperties;
 
 class TG {
   public var fgid:uint; // first GID
   public var lgid:uint; // last GID
   public var g:TGraphic;
+  public var props:TProperties;
 
-  public function TG(fgid:uint, g:TGraphic) {
+  public function TG(fgid:uint, g:TGraphic, props:TProperties = null) {
     this.g = g;
     this.lgid = (this.fgid = fgid) + this.g.countTiles;
+    this.props = props;
   }
 }

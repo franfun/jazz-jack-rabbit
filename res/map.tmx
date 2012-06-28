@@ -408,12 +408,12 @@
    <property name="anim/die/repeat" value="false"/>
    <property name="anim/duck/frame-rate" value="2"/>
    <property name="anim/duck/frames" value="14-15"/>
-   <property name="anim/fall/frames" value="13"/>
+   <property name="anim/fall/frames" value="13-13"/>
    <property name="anim/fury-jump/frame-rate" value="8"/>
    <property name="anim/fury-jump/frames" value="31-34"/>
    <property name="anim/hurt/frame-rate" value="6"/>
    <property name="anim/hurt/frames" value="28-30"/>
-   <property name="anim/jump/frames" value="26"/>
+   <property name="anim/jump/frames" value="26-26"/>
    <property name="anim/run/frame-rate" value="16"/>
    <property name="anim/run/frames" value="1-4"/>
    <property name="anim/shoot/frame-rate" value="4"/>
@@ -424,8 +424,16 @@
    <property name="anim/walk/frames" value="7-12"/>
    <property name="anim/whazzup/frame-rate" value="5"/>
    <property name="anim/whazzup/frames" value="35-40"/>
-   <property name="g-hitbox" value="-5,-6,22,30"/>
+   <property name="g-hitbox" value="22,30,-5,-6"/>
    <property name="g-type" value="spritemap"/>
+   <property name="spells/camera-watch" value=""/>
+   <property name="spells/control" value=""/>
+   <property name="spells/gravity" value=""/>
+   <property name="spells/jump" value=""/>
+   <property name="spells/keyboard" value=""/>
+   <property name="spells/rabbit-animator" value=""/>
+   <property name="spells/rabbit-life" value=""/>
+   <property name="spells/shoot" value=""/>
   </properties>
   <image source="jazz-aligned.png" width="224" height="216"/>
   <tile id="0">

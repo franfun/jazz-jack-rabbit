@@ -1,5 +1,7 @@
 package net.jazz.game.core {
   import net.flashpunk.Entity;
+  import net.flashpunk.Graphic;
+  import net.flashpunk.Mask;
 
   /**
    * Map object.
@@ -10,8 +12,8 @@ package net.jazz.game.core {
      */
     protected var mAffects:Array = [];
 
-    public function TObject() {
-      super();
+    public function TObject(x:Number = 0, y:Number = 0, graphic:Graphic = null, mask:Mask = null) {
+      super(x, y, graphic, mask);
     }
 
     public function HorizontalMove(dx:int, omitSolid:Boolean = false):void {

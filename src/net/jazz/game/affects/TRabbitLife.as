@@ -3,7 +3,7 @@ package net.jazz.game.affects {
 
   import net.jazz.game.core.TAffect;
   import net.jazz.game.core.IAffectable;
-  import net.jazz.game.core.TRabbit;
+  import net.jazz.game.core.TObject;
 
   import net.flashpunk.graphics.Canvas;
 
@@ -20,16 +20,18 @@ package net.jazz.game.affects {
     private var mCanvas:Canvas;
     private var mFullRect:Rectangle = new Rectangle(20, 20, 65, 7);
 
-    public function TRabbitLife(canvas:Canvas, onDeath:Function) {
-      mCanvas = canvas;
-      mOnDeath = onDeath;
+    public function TRabbitLife() {
     }
+
+    public function set canvas(canvas:Canvas):void { mCanvas = canvas; }
+
+    public function set onDeath(onDeath:Function):void { mOnDeath = onDeath; }
 
     public function hit():void {
       if(mIsHitted) return;
       var hit:THit = new THit;
       hit.callback = startBlink;
-      (target as TRabbit).addAffect(hit);
+      target.addAffect(hit);
       mIsHitted = true;
       mStartColor = mEndColor;
       mEndColor = mColors[--mLife];
@@ -65,7 +67,7 @@ package net.jazz.game.affects {
       }
       var blink:TBlink = new TBlink(0x880000, 5, 0x008888);
       blink.callback = endImmortality;
-      (target as TRabbit).addAffect(blink);
+      target.addAffect(blink);
     }
 
     private function endImmortality():void {

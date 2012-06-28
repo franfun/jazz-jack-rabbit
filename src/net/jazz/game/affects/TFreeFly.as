@@ -6,7 +6,6 @@ package net.jazz.game.affects {
   import net.jazz.game.core.IAffectable;
   import net.jazz.game.core.IBounded;
   import net.jazz.game.core.TObject;
-  import net.jazz.game.objects.TSprite;
 
   public class TFreeFly extends TAffect {
 
@@ -21,16 +20,18 @@ package net.jazz.game.affects {
     }
 
     public override function process():void {
-      var obj:TSprite = target as TSprite;
+      var obj:TObject = target as TObject;
       mDx += mOrient * 10 * FP.elapsed * 10;
       if(mDx >= mMaxDx) {
         mDx = mMaxDx;
         mOrient = -1;
-        obj.flipped = true;
+        // use spritemap of obj
+        // obj.flipped = true;
       } else if(mDx <= 0) {
         mDx = 0;
         mOrient = 1;
-        obj.flipped = false;
+        // use spritemap of obj
+        // obj.flipped = false;
       }
       obj.x = mOriginX + mDx;
       if(mDx % 18 < 12) obj.y = mOriginY - 2;

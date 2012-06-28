@@ -19,8 +19,6 @@ package net.jazz.game.core {
     public static const ELEMENT_LAYER:uint = 20;
     public static const OBJECT_LAYER:uint = 30;
 
-    private var mJazz:TRabbit;
-
     private var mAffectables:Array = [];
 
     private var mToDelete:Array = [];
@@ -76,18 +74,6 @@ package net.jazz.game.core {
       if(obj is IAffectable) removeAffectable(obj as IAffectable);
       return super.remove(obj);
     }
-
-    /**
-     * This guy is special!
-     *
-     * @param jazz TRabbit The One.
-     */
-    public function AddJazz(jazz:TRabbit):void {
-      mJazz = jazz;
-      add(jazz);
-    }
-
-    public function get jazz():TRabbit { return mJazz; }
 
     //----------------------------------------
     //-- Affectable section

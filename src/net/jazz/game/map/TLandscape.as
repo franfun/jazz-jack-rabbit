@@ -59,10 +59,7 @@ package net.jazz.game.map {
       var row_size:uint = 0;
       var has_mask:Boolean = false;
 
-      trace(graphic.mask);
-      trace(type);
       if(graphic.mask != null && type != "") {
-        trace("adding mask");
         hitTiles = graphic.mask.bitmap;
         row_size = Math.floor(hitTiles.width / tw);
         result.mask = new Masklist();

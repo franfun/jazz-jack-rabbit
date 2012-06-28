@@ -1,12 +1,12 @@
 package net.jazz.game.affects {
   import net.flashpunk.FP;
   import net.flashpunk.Sfx;
+  import net.flashpunk.graphics.Spritemap;
 
   import net.jazz.game.core.TObject;
   import net.jazz.game.core.TLevel;
   import net.jazz.game.core.TAffect;
   import net.jazz.game.core.IAffectable;
-  import net.jazz.game.core.TRabbit;
   import net.jazz.game.objects.TBullet;
 
   public class TShoot extends TAffect {
@@ -89,14 +89,14 @@ package net.jazz.game.affects {
       if(!mIsShooting) return;
       var bb:TBullet;
       if(mType == 2) {
-        bb = buildBullet((target as TRabbit).x, (target as TRabbit).y);
+        bb = buildBullet((target as TObject).x, (target as TObject).y);
         bb.y -= 5;
         bb.subType = 0;
-        bb = buildBullet((target as TRabbit).x, (target as TRabbit).y);
+        bb = buildBullet((target as TObject).x, (target as TObject).y);
         bb.y += 5;
         bb.subType = 1;
       } else {
-        bb = buildBullet((target as TRabbit).x, (target as TRabbit).y);
+        bb = buildBullet((target as TObject).x, (target as TObject).y);
       }
       mShootSounds[mType].play();
       mLastShoot = 0;
@@ -113,7 +113,7 @@ package net.jazz.game.affects {
       bb.init(mType);
       bb.bounds = mLevel;
       bb.layer = 15;
-      if((target as TRabbit).flipped) {
+      if(((target as TObject).graphic as Spritemap).flipped) {
         bb.orient = -1;
         bb.x = x;
         bb.y = y + 20;
